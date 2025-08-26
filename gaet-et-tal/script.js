@@ -1,4 +1,3 @@
-
 const max = 100;
 let randomNum;
 const resultDisplay = document.querySelector("#result");
@@ -32,9 +31,18 @@ const celebrationRainbow = {
     ]
 };
 
-document.querySelector("#guess-button").addEventListener("click", function () {
+
+function handleGuess() {
     const userGuess = parseInt(document.querySelector("#guess-input").value);
     checkGuess(userGuess);
+}
+
+document.querySelector("#guess-button").addEventListener("click", handleGuess);
+
+document.querySelector("#guess-input").addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        handleGuess();
+    }
 });
 
 function checkGuess(guess) {
