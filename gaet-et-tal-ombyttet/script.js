@@ -1,8 +1,8 @@
 const startButton = document.getElementById("startButton");
 const computerGuess = document.getElementById("computerGuess");
-const forLavt = document.getElementById("forLavt");
-const forHoyt = document.getElementById("forHoyt");
-const rigtigt = document.getElementById("rigtigt");
+const tooLow = document.getElementById("tooLow");
+const tooHigh = document.getElementById("tooHigh");
+const correct = document.getElementById("correct");
 const container = document.querySelector(".container");
 let min = 0;
 let max = 100;
@@ -11,9 +11,9 @@ let guesses = [];
 
 startButton.addEventListener("click", () => {
     computerGuess.classList.remove("hidden");
-    forLavt.classList.remove("hidden");
-    forHoyt.classList.remove("hidden");
-    rigtigt.classList.remove("hidden");
+    tooLow.classList.remove("hidden");
+    tooHigh.classList.remove("hidden");
+    correct.classList.remove("hidden");
     startButton.classList.add("hidden");
     min = 0;
     max = 100;
@@ -41,11 +41,11 @@ function generateComputerGuessHigher() {
 }
 
 
-forLavt.addEventListener("click", () => {
+tooLow.addEventListener("click", () => {
     generateComputerGuessHigher();
 });
 
-forHoyt.addEventListener("click", () => {
+tooHigh.addEventListener("click", () => {
     generateComputerGuessLower();
 });
 
@@ -61,11 +61,11 @@ const celebrationRainbow = {
     ],
 };
 
-rigtigt.addEventListener("click", () => {
+correct.addEventListener("click", () => {
     computerGuess.textContent = `The number was ${currentGuess}. Guessed in ${guesses.length} tries.`;
-    forLavt.classList.add("hidden");
-    forHoyt.classList.add("hidden");
-    rigtigt.classList.add("hidden");
+    tooLow.classList.add("hidden");
+    tooHigh.classList.add("hidden");
+    correct.classList.add("hidden");
     startButton.textContent = "Play Again";
     startButton.classList.remove("hidden");
     container.animate(celebrationRainbow, { duration: 1500, iterations: 3 });
