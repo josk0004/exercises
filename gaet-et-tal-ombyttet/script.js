@@ -41,13 +41,27 @@ function generateComputerGuessHigher() {
 }
 
 
-tooLow.addEventListener("click", () => {
-    generateComputerGuessHigher();
+tooLow.addEventListener("click", TooLow);
+document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowUp") {
+        TooLow();
+    }
 });
 
-tooHigh.addEventListener("click", () => {
-    generateComputerGuessLower();
+function TooLow() {
+    generateComputerGuessHigher();
+}
+
+tooHigh.addEventListener("click", TooHigh);
+document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowDown") {
+        TooHigh();
+    }
 });
+
+function TooHigh() {
+    generateComputerGuessLower();
+}
 
 const celebrationRainbow = {
     border: [
@@ -61,7 +75,14 @@ const celebrationRainbow = {
     ],
 };
 
-correct.addEventListener("click", () => {
+correct.addEventListener("click", correctGuess);
+document.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        correctGuess();
+    }
+});
+
+function correctGuess() {
     computerGuess.textContent = `The number was ${currentGuess}. Guessed in ${guesses.length} tries.`;
     tooLow.classList.add("hidden");
     tooHigh.classList.add("hidden");
@@ -73,4 +94,4 @@ correct.addEventListener("click", () => {
     setTimeout(() => {
         container.classList.remove("wider");
     }, 4500);
-});
+};
