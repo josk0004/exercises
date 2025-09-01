@@ -1,15 +1,12 @@
-const max = 100;
+import { randomNumber } from "../utils/utils.js";
+import { select } from "../utils/utils.js";
+import { selectId } from "../utils/utils.js";
 let randomNum;
-const resultDisplay = document.querySelector("#result");
+const resultDisplay = select("#result");
 
 document.addEventListener("DOMContentLoaded", function () {
-    randomNum = randomNumber();
+    randomNum = randomNumber(100);
 });
-
-function randomNumber() {
-    let number = Math.floor(Math.random() * (max + 1));
-    return number;
-}
 
 const fadeOutFrames = {
     opacity: [1, 0]
@@ -33,13 +30,13 @@ const celebrationRainbow = {
 
 
 function handleGuess() {
-    const userGuess = parseInt(document.querySelector("#guess-input").value);
+    const userGuess = parseInt(select("#guess-input").value);
     checkGuess(userGuess);
 }
 
-document.querySelector("#guess-button").addEventListener("click", handleGuess);
+select("#guess-button").addEventListener("click", handleGuess);
 
-document.querySelector("#guess-input").addEventListener("keydown", function (event) {
+select("#guess-input").addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
         handleGuess();
     }
@@ -49,7 +46,7 @@ function checkGuess(guess) {
     if (guess === randomNum) {
         resultDisplay.textContent = "Tillykke! Du gættede det rigtige tal.";
         resultDisplay.animate(noAnimation, { duration: 1, fill: "forwards" });
-        document.querySelector(".container").animate(celebrationRainbow, { duration: 2000, iterations: 3 });
+        select(".container").animate(celebrationRainbow, { duration: 2000, iterations: 3 });
         randomNum = randomNumber();
     } else if (guess < randomNum) {
         resultDisplay.textContent = "For lavt! Prøv igen.";
