@@ -4,8 +4,8 @@ const list = document.querySelector("ul");
 let bars = [];
 
 setInterval(function () {
-    if (bars.length >= 19) {
-        list.removeChild(list.firstChild);
+    if (bars.length >= 20) {
+        list.removeChild(list.firstElementChild);
         bars.shift();
     }
     const li = document.createElement("li");
