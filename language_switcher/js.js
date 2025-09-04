@@ -14,3 +14,17 @@ const texts = {
   },
 };
 const locale = "da";
+const german = "de";
+
+function switchLanguage(to) {
+  const lang = texts[to];
+  lang.texts.forEach(({ text, location }) => {
+    document.querySelector(location).innerText = text;
+  });
+}
+
+document
+  .getElementById("language-select")
+  .addEventListener("change", (event) => switchLanguage(event.target.value));
+
+switchLanguage(locale);
