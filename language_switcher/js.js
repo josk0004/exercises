@@ -19,7 +19,7 @@ const german = "de";
 function switchLanguage(to) {
   const lang = texts[to];
   lang.texts.forEach(({ text, location }) => {
-    document.querySelector(location).innerText = text;
+    document.querySelector(location).textContent = text;
   });
 }
 
