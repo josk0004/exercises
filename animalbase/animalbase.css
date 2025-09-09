@@ -12,7 +12,7 @@
 
 #list tbody tr td {
   padding: 4px;
-  
+
 }
 
 #list tbody tr:nth-child(odd) td {
