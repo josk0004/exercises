@@ -4,7 +4,7 @@ window.addEventListener("DOMContentLoaded", start);
 
 const allAnimals = [];
 
-function start( ) {
+function start() {
     console.log("ready");
 
     loadJSON();
@@ -13,18 +13,26 @@ function start( ) {
 
 function loadJSON() {
     fetch("animals.json")
-    .then( response => response.json() )
-    .then( jsonData => {
-        // when loaded, prepare objects
-        prepareObjects( jsonData );
-    });
+        .then(response => response.json())
+        .then(jsonData => {
+            // when loaded, prepare objects
+            prepareObjects(jsonData);
+        });
 }
 
-function prepareObjects( jsonData ) {
-    jsonData.forEach( jsonObject => {
+function prepareObjects(jsonData) {
+    jsonData.forEach(jsonObject => {
         // TODO: Create new object with cleaned data - and store that in the allAnimals array
-        
-        // TODO: MISSING CODE HERE !!!
+
+        const animal = {}
+        const texts = jsonObject.fullname.split(" ");
+        animal.name = texts[0];
+        animal.desc = texts[2];
+        animal.type = texts[3];
+        animal.age = jsonObject.age;
+
+        allAnimals.push(animal);
+
     });
 
     displayList();
@@ -35,10 +43,10 @@ function displayList() {
     document.querySelector("#list tbody").innerHTML = "";
 
     // build a new list
-    allAnimals.forEach( displayAnimal );
+    allAnimals.forEach(displayAnimal);
 }
 
-function displayAnimal( animal ) {
+function displayAnimal(animal) {
     // create clone
     const clone = document.querySelector("template#animal").content.cloneNode(true);
 
@@ -49,7 +57,7 @@ function displayAnimal( animal ) {
     clone.querySelector("[data-field=age]").textContent = animal.age;
 
     // append clone to list
-    document.querySelector("#list tbody").appendChild( clone );
+    document.querySelector("#list tbody").appendChild(clone);
 }
 
 
