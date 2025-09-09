@@ -1,4 +1,4 @@
 
-document.getElementById('theme-select').addEventListener('change', function() {
-    document.body.setAttribute('data-theme', this.value);
+document.getElementById('theme-select').addEventListener('change', function () {
+    document.body.dataset.theme = this.value;
 });
