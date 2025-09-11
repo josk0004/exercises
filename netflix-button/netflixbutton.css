@@ -1,0 +1,39 @@
+body {
+    background-color: grey;
+    transition: background-color 0.5s;
+}
+
+
+/* https: //stackoverflow.com/questions/17212094/fill-background-color-left-to-right-css */
+#netflix-button {
+    background: linear-gradient(to left, lightgrey 50%, white 50%);
+    background-size: 200% 100%;
+    color: black;
+    border-radius: 10px;
+    padding: 1rem;
+    max-width: fit-content;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-position 0.5s, color 0.5s;
+}
+
+.timer {
+    animation: timer 5s linear forwards;
+}
+
+@keyframes timer {
+    0% {
+        background-position: right;
+    }
+
+    100% {
+        background-position: left;
+    }
+}
