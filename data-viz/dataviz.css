@@ -1,0 +1,34 @@
+:root {
+    --sun-position: 50%;
+    --bg-color-lightness: 50%;
+}
+
+body {
+    background-color: hsl(200, 100%, var(--bg-color-lightness));
+    height: 100vh;
+    overflow: hidden;
+    transition: background-color 2s ease-in-out;
+}
+
+#sun {
+    background-color: yellow;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    position: absolute;
+    top: var(--sun-position);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    box-shadow: 0 0 50px 25px rgba(255, 223, 0, 0.5);
+    transition: top 2s ease-in-out;
+}
+
+#displayNumber {
+    color: orange;
+    font-family: monospace;
+    font-weight: bold;
+}
