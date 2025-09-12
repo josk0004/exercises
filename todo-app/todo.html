@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="stylesheet" href="todo.css">
+    <script type="module" src="todo.js"></script>
+    <script type="module" src="themeswitcher.js"></script>
+</head>
+
+<body data-theme="light">
+    <header>
+        <h1>Todo App</h1>
+        <label for="theme-select">Select Theme:
+            <select id="theme-select">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+        </label>
+    </header>
+    <main>
+        <section class="todo-section">
+            <h2>My Todos</h2>
+            <button id="add-todo">Add New Todo</button>
+            <div id="new-todo-container" class="hidden">
+                <input type="text" id="new-todo-description" placeholder="Description">
+                <input type="number" id="new-todo-amount" placeholder="Amount">
+                <input type="date" id="new-todo-due-date">
+                <select id="new-todo-priority">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+
+                <button id="save-todo">Save</button>
+                <button id="cancel-todo">Cancel</button>
+            </div>
+            <ul id="todo-list">
+                <!-- Todo items will be dynamically added here -->
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Todo App</p>
+    </footer>
+</body>
+
+</html>
