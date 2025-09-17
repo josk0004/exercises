@@ -1,4 +1,3 @@
-// Get elements from the DOM
 const addNewTodoBtn = document.getElementById('add-todo');
 const newTodoContainer = document.getElementById('new-todo-container');
 const todoList = document.getElementById('todo-list');
@@ -128,6 +127,12 @@ saveTodoBtn.addEventListener('click', () => {
     } else {
         alert('Description is required.');
     }
+});
+
+// Filtering functionality
+filterPriority.addEventListener('change', () => {
+    settings.filter = filterPriority.value;
+    renderTodoList();
 });
 
 // Function to render the todo list
@@ -294,6 +299,13 @@ function saveToLocalStorage() {
     localStorage.setItem('todos', JSON.stringify(todos));
 }
 
+// Add event listeners for sorting
+sortDescriptionBtn.addEventListener('click', () => sortTodos('description'));
+sortAmountBtn.addEventListener('click', () => sortTodos('amount'));
+sortDueDateBtn.addEventListener('click', () => sortTodos('dueDate'));
+sortPriorityBtn.addEventListener('click', () => sortTodos('priority'));
+sortCreatedBtn.addEventListener('click', () => sortTodos('createdAt'));
+
 // Sorting functionality
 function sortTodos(field) {
     const currentDirection = settings.sortDir === 'asc' ? 'desc' : 'asc';
@@ -358,16 +370,3 @@ function sortTodos(field) {
     
     renderTodoList();
 }
-
-// Add event listeners for sorting
-sortDescriptionBtn.addEventListener('click', () => sortTodos('description'));
-sortAmountBtn.addEventListener('click', () => sortTodos('amount'));
-sortDueDateBtn.addEventListener('click', () => sortTodos('dueDate'));
-sortPriorityBtn.addEventListener('click', () => sortTodos('priority'));
-sortCreatedBtn.addEventListener('click', () => sortTodos('createdAt'));
-
-// Filtering functionality
-filterPriority.addEventListener('change', () => {
-    settings.filter = filterPriority.value;
-    renderTodoList();
-});
