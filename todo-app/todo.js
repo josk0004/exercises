@@ -1,3 +1,4 @@
+// Get elements from the DOM
 const addNewTodoBtn = document.getElementById('add-todo');
 const newTodoContainer = document.getElementById('new-todo-container');
 const todoList = document.getElementById('todo-list');
@@ -24,13 +25,16 @@ const filterPriority = document.getElementById('filter-priority');
 let skipDeleteConfirmation = false;
 let editingTodoId = null;
 
+
 const settings = {
     filter: 'All',
     sortBy: '',
     sortDir: ''
 };
 
+
 const todos = [];
+
 const todo = {
     id: '', 
     description: '',
@@ -41,6 +45,7 @@ const todo = {
     createdAt: ''
 }
 
+
 document.addEventListener('DOMContentLoaded', () => {
     const savedTodos = localStorage.getItem('todos');
     if (savedTodos) {
@@ -49,14 +54,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
 addNewTodoBtn.addEventListener('click', () => {
     newTodoContainer.classList.remove('hidden');
 });
+
 
 cancelTodoBtn.addEventListener('click', () => {
     newTodoContainer.classList.add('hidden');
     clearNewTodoFields();
 });
+
 
 function clearNewTodoFields() {
     newTodoDescription.value = '';
@@ -65,15 +73,14 @@ function clearNewTodoFields() {
     newTodoPriority.value = 'Low';
 }
 
+// Event listener for saving a new todo
 saveTodoBtn.addEventListener('click', () => {
     const description = newTodoDescription.value.trim();
     const amountValue = newTodoAmount.value.trim();
     const amount = amountValue ? parseFloat(amountValue) : '';
     const dueDate = newTodoDate.value.trim();
     const priority = newTodoPriority.value;
-    const createdAt = editingTodoId
-        ? todos.find(t => t.id === editingTodoId)?.createdAt || new Date().toISOString()
-        : new Date().toISOString();
+    const createdAt = editingTodoId ? todos.find(t => t.id === editingTodoId)?.createdAt || new Date().toISOString() : new Date().toISOString();
 
     if (description) {
         let todoId = null;
@@ -123,6 +130,7 @@ saveTodoBtn.addEventListener('click', () => {
     }
 });
 
+// Function to render the todo list
 function renderTodoList() {
     todoList.innerHTML = '';
     completedTodoList.innerHTML = '';
@@ -262,15 +270,16 @@ function renderTodoList() {
     });
 };
 
+// Function to delete a todo
 function deleteTodo (todo) {
-    const index = todos.findIndex(t => t.id === todo.id);
+    const idx = todos.findIndex(t => t.id === todo.id);
     const todoItem = document.querySelector(`[data-todo-id="${todo.id}"]`);
     if (todoItem) {
         todoItem.classList.add('fade-out');
     }
     setTimeout(() => {
-    if (index !== -1) {
-        todos.splice(index, 1);
+    if (idx !== -1) {
+        todos.splice(idx, 1);
         renderTodoList();
         saveToLocalStorage();
     }
@@ -280,6 +289,7 @@ function deleteTodo (todo) {
     document.body.style.overflow = 'visible';
 }
 
+// Function to save todos to local storage
 function saveToLocalStorage() {
     localStorage.setItem('todos', JSON.stringify(todos));
 }
