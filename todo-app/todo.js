@@ -76,11 +76,14 @@ saveTodoBtn.addEventListener('click', () => {
         : new Date().toISOString();
 
     if (description) {
+        let todoId = null;
+        
         if (editingTodoId) {
             // Edit mode: update existing todo
             const idx = todos.findIndex(t => t.id === editingTodoId);
             if (idx !== -1) {
                 todos[idx] = { ...todos[idx], description, amount, dueDate, priority };
+                todoId = editingTodoId;
             }
             editingTodoId = null;
         } else {
@@ -88,8 +91,10 @@ saveTodoBtn.addEventListener('click', () => {
             const uniqueId = self.crypto.randomUUID();
             const newTodo = { ...todo, id: uniqueId, description, amount, dueDate, priority, createdAt };
             todos.push(newTodo);
+            todoId = uniqueId;
         }
         newTodoContainer.classList.add('hidden');
+        
         // Re-apply current sorting if any
         if (settings.sortBy) {
             const currentField = settings.sortBy;
@@ -99,6 +104,18 @@ saveTodoBtn.addEventListener('click', () => {
         } else {
             renderTodoList();
         }
+        
+        // Add fade-in animation for new/edited todo
+        if (todoId) {
+            const newTodoItem = document.querySelector(`[data-todo-id="${todoId}"]`);
+            if (newTodoItem) {
+                newTodoItem.classList.add('fade-in');
+                setTimeout(() => {
+                    newTodoItem.classList.remove('fade-in');
+                }, 500);
+            }
+        }
+        
         clearNewTodoFields();
         saveToLocalStorage();
     } else {
@@ -121,6 +138,7 @@ function renderTodoList() {
     filteredTodos.forEach((todo) => {
         const todoItem = document.createElement('li');
         todoItem.classList.add('todo-card');
+        todoItem.setAttribute('data-todo-id', todo.id);
         const textContainer = document.createElement('div');
         textContainer.classList.add('todo-text-container');
 
@@ -204,8 +222,20 @@ function renderTodoList() {
 
         checkbox.addEventListener('change', () => {
             todo.completed = checkbox.checked;
-            renderTodoList();
-            saveToLocalStorage();
+            const todoId = todo.id;
+            todoItem.classList.add('fade-out');
+            setTimeout(() => {
+                renderTodoList();
+                saveToLocalStorage();
+
+                const newTodoItem = document.querySelector(`[data-todo-id="${todoId}"]`);
+                if (newTodoItem) {
+                    newTodoItem.classList.add('fade-in');
+                    setTimeout(() => {
+                        newTodoItem.classList.remove('fade-in');
+                    }, 500);
+                }
+            }, 500);
         });
 
         deleteBtn.addEventListener('click', () => {
@@ -234,11 +264,17 @@ function renderTodoList() {
 
 function deleteTodo (todo) {
     const index = todos.findIndex(t => t.id === todo.id);
+    const todoItem = document.querySelector(`[data-todo-id="${todo.id}"]`);
+    if (todoItem) {
+        todoItem.classList.add('fade-out');
+    }
+    setTimeout(() => {
     if (index !== -1) {
         todos.splice(index, 1);
         renderTodoList();
         saveToLocalStorage();
     }
+    }, 500);
     deleteConfirmation.classList.add('hidden');
     overlay.classList.add('hidden');
     document.body.style.overflow = 'visible';
