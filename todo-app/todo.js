@@ -24,13 +24,11 @@ const filterPriority = document.getElementById('filter-priority');
 let skipDeleteConfirmation = false;
 let editingTodoId = null;
 
-
 const settings = {
     filter: 'All',
     sortBy: '',
     sortDir: ''
 };
-
 
 const todos = [];
 
@@ -44,7 +42,6 @@ const todo = {
     createdAt: ''
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
     const savedTodos = localStorage.getItem('todos');
     if (savedTodos) {
@@ -53,17 +50,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
 addNewTodoBtn.addEventListener('click', () => {
     newTodoContainer.classList.remove('hidden');
 });
-
 
 cancelTodoBtn.addEventListener('click', () => {
     newTodoContainer.classList.add('hidden');
     clearNewTodoFields();
 });
-
 
 function clearNewTodoFields() {
     newTodoDescription.value = '';
@@ -72,7 +66,6 @@ function clearNewTodoFields() {
     newTodoPriority.value = 'Low';
 }
 
-// Event listener for saving a new todo
 saveTodoBtn.addEventListener('click', () => {
     const description = newTodoDescription.value.trim();
     const amountValue = newTodoAmount.value.trim();
@@ -111,7 +104,7 @@ saveTodoBtn.addEventListener('click', () => {
             renderTodoList();
         }
         
-        // Add fade-in animation for new/edited todo
+        // Add fade-in animation
         if (todoId) {
             const newTodoItem = document.querySelector(`[data-todo-id="${todoId}"]`);
             if (newTodoItem) {
@@ -129,13 +122,11 @@ saveTodoBtn.addEventListener('click', () => {
     }
 });
 
-// Filtering functionality
 filterPriority.addEventListener('change', () => {
     settings.filter = filterPriority.value;
     renderTodoList();
 });
 
-// Function to render the todo list
 function renderTodoList() {
     todoList.innerHTML = '';
     completedTodoList.innerHTML = '';
@@ -279,7 +270,6 @@ function renderTodoList() {
     });
 };
 
-// Function to delete a todo
 function deleteTodo (todo) {
     const idx = todos.findIndex(t => t.id === todo.id);
     const todoItem = document.querySelector(`[data-todo-id="${todo.id}"]`);
@@ -298,19 +288,16 @@ function deleteTodo (todo) {
     document.body.style.overflow = 'visible';
 }
 
-// Function to save todos to local storage
 function saveToLocalStorage() {
     localStorage.setItem('todos', JSON.stringify(todos));
 }
 
-// Add event listeners for sorting
 sortDescriptionBtn.addEventListener('click', () => sortTodos('description'));
 sortAmountBtn.addEventListener('click', () => sortTodos('amount'));
 sortDueDateBtn.addEventListener('click', () => sortTodos('dueDate'));
 sortPriorityBtn.addEventListener('click', () => sortTodos('priority'));
 sortCreatedBtn.addEventListener('click', () => sortTodos('createdAt'));
 
-// Sorting functionality
 function sortTodos(field) {
     const currentDirection = settings.sortDir === 'asc' ? 'desc' : 'asc';
     settings.sortBy = field;
@@ -330,12 +317,11 @@ function sortTodos(field) {
         let aValue = a[field];
         let bValue = b[field];
         
-        // Handle different field types
         if (field === 'amount') {
             const aHasAmount = aValue !== '' && !isNaN(parseFloat(aValue));
             const bHasAmount = bValue !== '' && !isNaN(parseFloat(bValue));
             
-            // If one has amount and other doesn't, prioritize the one with amount
+            // Prioritize the one with amount
             if (aHasAmount && !bHasAmount) return -1;
             if (!aHasAmount && bHasAmount) return 1;
             if (!aHasAmount && !bHasAmount) return 0;
@@ -346,7 +332,7 @@ function sortTodos(field) {
             const aHasDate = aValue && aValue.trim() !== '';
             const bHasDate = bValue && bValue.trim() !== '';
             
-            // If one has date and other doesn't, prioritize the one with date
+            // Prioritize the one with date
             if (aHasDate && !bHasDate) return -1;
             if (!aHasDate && bHasDate) return 1;
             if (!aHasDate && !bHasDate) return 0;
