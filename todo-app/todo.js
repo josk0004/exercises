@@ -176,7 +176,8 @@ function renderTodoList() {
         if (todo.dueDate) {
             const dueSpan = document.createElement('span');
             dueSpan.classList.add('todo-due');
-            dueSpan.textContent = `Due: ${todo.dueDate}`;
+            const dueDate = new Date(todo.dueDate);
+            dueSpan.textContent = `Due: ${dueDate.toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' })}`;
             details.appendChild(dueSpan);
         }
         // Priority
@@ -341,11 +342,11 @@ function sortTodos(field) {
             bValue = new Date(bValue);
         } else if (field === 'priority') {
             const priorityOrder = { 'Low': 1, 'Medium': 2, 'High': 3 };
-            aValue = priorityOrder[aValue] || 0;
-            bValue = priorityOrder[bValue] || 0;
+            aValue = priorityOrder[aValue];
+            bValue = priorityOrder[bValue];
         } else if (field === 'createdAt') {
-            aValue = new Date(aValue || '1970-01-01');
-            bValue = new Date(bValue || '1970-01-01');
+            aValue = new Date(aValue);
+            bValue = new Date(bValue);
         } else {
             aValue = String(aValue).toLowerCase();
             bValue = String(bValue).toLowerCase();
