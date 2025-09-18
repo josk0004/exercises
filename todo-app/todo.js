@@ -190,8 +190,12 @@ function renderTodoList() {
         }
         // Priority
         const prioritySpan = document.createElement('span');
+        const priorityLabel = document.createElement('span');
+        priorityLabel.textContent = 'Priority: ';
+        priorityLabel.classList.add('todo-priority');
         prioritySpan.classList.add('todo-priority', `priority-${todo.priority.toLowerCase()}`);
-        prioritySpan.textContent = `Priority: ${todo.priority}`;
+        prioritySpan.textContent = `${todo.priority}`;
+        details.appendChild(priorityLabel);
         details.appendChild(prioritySpan);
         textContainer.appendChild(details);
 

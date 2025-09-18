@@ -252,6 +252,18 @@ header select option {
     font-weight: 500;
 }
 
+.priority-low {
+    color: var(--success);
+}
+
+.priority-medium {
+    color: var(--warning);
+}
+
+.priority-high {
+    color: var(--danger);
+}
+
 .todo-created {
     font-size: 0.75rem;
     color: var(--text-secondary);
